@@ -126,3 +126,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# If you can't use an SMTP server, you can tell Django to write emails to the console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

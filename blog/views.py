@@ -1,5 +1,8 @@
 from django.views.generic import ListView, DetailView
 from .models import Post
+from .forms import EmailPostForm
+from django.shortcuts import render, get_object_or_404
+
 
 class PostListView(ListView):
     queryset = Post.published.all()
@@ -7,8 +10,31 @@ class PostListView(ListView):
     paginate_by = 3
     template_name = 'blog/post/list.html'
 
+
+def post_share(request, post_id):
+    # Share post via email
+
+    # retrieve post by id and ensure the post has a published status
+    post = get_object_or_404(Post, id=post_id, status='published')
+
+    # if request was post we send the email
+    if request.method == 'POST':
+        # Form was submitted
+        form = EmailPostForm(request.POST)
+
+        # before send check the form is valid or not
+        if form.is_valid():
+            # Form fields passed validation
+            cd = form.cleaned_data
+            # ...send email
+
+    # if form was GET we send an empty form
+    else:
+        form = EmailPostForm()
+
+    return render(request, 'blog/post/share.html', {'post': post, 'form': form})
+
 # from django.core import paginator
-from django.shortcuts import render, get_object_or_404
 # from .models import Post
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
