@@ -1,0 +1,35 @@
+It is better to introduce the app in the settings
+'blog/apps/BlogConfig'
+
+This command displays exactly the code generated for the models
+>> ./manage.py sqlmigrate
+
+Get a full shell
+>> ./manage.py shell
+
+Database command
+all_posts = Post.objects.all()
+
+user = User.objects.get(username='admin')
+
+post = Post(title='Another post', slug='another-post', body='Post body.', author=user)
+post.save()
+
+Post.objects.create(title='One more post',
+                    slug='one-more-post',
+                    body='Post body.',
+                    author=user)
+
+post.title = 'New title'
+post.save()
+
+Post.objects.filter(publish__year=2020)
+Post.objects.filter(publish__year=2020, author__username='admin')
+Post.objects.filter(publish__year=2020).filter(author__username='admin')
+Post.objects.filter(publish__year=2020).exclude(title__startswith='Why')
+
+Post.objects.order_by('title')
+Post.objects.order_by('-title') # vice versa
+
+post = Post.objects.get(id=1)
+post.delete()
