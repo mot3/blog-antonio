@@ -129,4 +129,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # If you can't use an SMTP server, you can tell Django to write emails to the console
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+########## SMTP server ########## 
+# If you want to send emails but you don't have a local SMTP server,
+# you can probably use the SMTP server of your email service provider.
+# The following sample configuration is valid for sending emails
+# via Gmail servers using a Google account:
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hopdrmot3@gmail.com'
+EMAIL_HOST_PASSWORD = 'm2367116H'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# If you are sending emails using Gmail with the preceding configuration,
+# you will have to enable access for less secure applications at https://myaccount.google.com/lesssecureapps
+########## End SMTP servver ##########
