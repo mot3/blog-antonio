@@ -1,7 +1,8 @@
 from django import template
-from django.db.models.expressions import Ref
 from ..models import Post
 from django.db.models import Count
+from django.utils.safestring import mark_safe
+import markdown
 
 register = template.Library()
 
@@ -33,3 +34,10 @@ def get_most_comments_posts(count=5):
         # in the computed field total_comments for each Post object
         total_comments=Count('comments')
     ).order_by('-total_comments')[:count]
+
+@register.filter(name='markdown')
+# You register template filters in the same way as template tags.
+# To prevent a name clash between your function name and the markdown module
+def markdown_format(text):
+    # Use markdown for create post
+    return mark_safe(markdown.markdown(text))

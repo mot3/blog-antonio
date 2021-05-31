@@ -1,8 +1,10 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
+<!-- post -->
 <h1>
     {{ post.title }}
 </h1>
@@ -20,13 +22,17 @@
     Published {{ post.publish }} by {{ post.author }}
 </p>
 
-{{ post.body|linebreaks }}
+<!-- {{ post.body|linebreaks }} -->
+{{ post.body|markdown }}
+<!-- end post -->
 
+<!-- share post -->
 <p>
     <a href="{% url 'blog:post_share' post.id %}">
         Share this post
     </a>
 </p>
+<!-- end share post -->
 
 <h2>Similar posts</h2>
 {% for post in similar_posts %}
@@ -51,16 +57,20 @@ There are no similar posts yet.
 {% for comment in comments %}
 <div class="comment">
     <p class="info">
+        <!-- forloop.counter ->> get current counter of loop -->
         Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}
     </p>
     {{ comment.body|linebreaks }}
 </div>
+
 {% empty %}
 <p>There are no comments yet.</p>
+
 {% endfor %}
 
 {% if new_comment %}
 <h2>Your comment has been added.</h2>
+
 {% else %}
 <h2>Add a new comment</h2>
 <form method="post">
