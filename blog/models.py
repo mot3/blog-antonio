@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class publishedManager(models.Manager):
@@ -70,3 +71,27 @@ class Post(models.Model):
                            self.publish.day,
                            self.slug,
                        ])
+
+    # The tags manager will allow you to add,
+    # retrieve, and remove tags from Postobjects.
+    tags = TaggableManager()
+
+
+class Comment(models.Model):
+    # If you don't define the related_name attribute,
+    # Django will use the name of the model in lowercase,
+    # followed by _set (that is, comment_set).
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self) -> str:
+        return f'Comment by {self.name} on {self.post}'

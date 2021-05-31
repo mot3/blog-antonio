@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 
 # For use the default panel for admin
 # admin.site.register(Post)
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -10,16 +11,16 @@ class PostAdmin(admin.ModelAdmin):
     # This class makes full Inheritance of the default admin class. (amdin.ModelAdmin)
 
     # This fields show in posts, when we see all the posts
-    list_display = ('title', 'slug', 'author', 'publish', 'status')
+    list_display = ('title', 'slug', 'author', 'publish', 'status',)
 
     # In the right column for filter
-    list_filter = ('status', 'created', 'publish', 'author')
+    list_filter = ('status', 'created', 'publish', 'author',)
 
     # Specify the search filelds
-    search_fields = ('title', 'body')
+    search_fields = ('title', 'body',)
 
     # Automatic fulling the slug with tiltle
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'slug': ('title',), }
 
     # This is a special way to facilitate the search of users
     raw_id_fields = ('author',)
@@ -28,5 +29,11 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
 
     # Create default ordering on
-    ordering = ('status', 'publish')
+    ordering = ('status', 'publish',)
 
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'post', 'created', 'active',)
+    list_filter = ('active', 'created', 'updated',)
+    search_fields = ('name', 'email', 'body',)
