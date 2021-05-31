@@ -29,6 +29,7 @@ urlpatterns = [
     # Namespaces have to be unique across your entire project.
     path('blog/', include('blog.urls', namespace='blog')),
 
+    # Add sitemap.xml url
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
 ]

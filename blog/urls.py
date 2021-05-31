@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .feeds import LatestPostsFeed
 
 # URL patterns allow you to map URLs to views
 
@@ -14,4 +15,7 @@ urlpatterns = [
     path('<int:year>/<int:month>/<int:day>/<slug:post>/',
          views.post_detail, name='post_detail'),
     path('<int:post_id>/share/', views.post_share, name='post_share'),
+
+    # Add feed url
+    path('feed/', LatestPostsFeed(), name='post_feed'),
 ]
