@@ -43,6 +43,10 @@ INSTALLED_APPS = [
 
     # third-party
     'taggit',
+
+    # Adding sitemap
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +151,7 @@ EMAIL_USE_TLS = True
 # If you are sending emails using Gmail with the preceding configuration,
 # you will have to enable access for less secure applications at https://myaccount.google.com/lesssecureapps
 ########## End SMTP servver ##########
+
+# a new setting for the site ID
+# for use sitemap
+SITE_ID = 1
